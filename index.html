@@ -1,14 +1,34 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
-
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Gestionnaire de Combat RPG</title>
 
     <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
 
+    <meta name="theme-color" content="#111111">
+
+    <!-- iPad / iPhone -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Combat RPG">
 </head>
+
+<body>
+
+
+
+
+<!DOCTYPE html>
+<html lang="fr">
+
+
+<link rel="manifest" href="manifest.json">
+
+
 
 <body>
 
@@ -217,6 +237,28 @@
     <script src="js/Combat.js"></script>
 
     <script src="js/script.js"></script>
+
+
+
+    <script>
+        if ("serviceWorker" in navigator) {
+            window.addEventListener("load", () => {
+                navigator.serviceWorker.register("./service-worker.js")
+                    .then(registration => {
+                        console.log(
+                            "Service Worker enregistré :",
+                            registration.scope
+                        );
+                    })
+                    .catch(error => {
+                        console.error(
+                            "Erreur Service Worker :",
+                            error
+                        );
+                    });
+            });
+        }
+    </script>
 
 
 
