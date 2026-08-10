@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+    <meta charset="UTF-8">
+    <title>Gestionnaire de Combat RPG</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+    <h1>⚔️ Gestionnaire de Combat RPG ⚔️</h1>
+
+    <div id="preparation">
+
+        <h2>⚔️ Préparer le combat</h2>
+
+        <div class="selection-equipes">
+
+            <div>
+
+                <h3>🧙 Personnages</h3>
+
+                <div id="bibliotheque-personnages"></div>
+
+            </div>
+
+
+            <div>
+
+                <h3>👹 Monstres</h3>
+
+                <div id="bibliotheque-monstres"></div>
+
+            </div>
+
+        </div>
+
+
+        <button id="gerer-equipement">
+            ⚔️ Gérer l'équipement
+        </button>
+
+
+        <button id="reinitialiser-personnages">
+            🔄 Réinitialiser les personnages
+        </button>
+
+
+        <button id="lancer-combat">
+            ⚔️ Lancer le combat
+        </button>
+
+    </div>
+
+
+
+
+    <div id="armurerie" style="display: none;">
+
+        <h2>⚔️ Armurerie</h2>
+
+        <div id="personnage-equipement"></div>
+
+        <div id="liste-equipements"></div>
+
+        <button id="retour-preparation">
+        ↩️ Retour
+        </button>
+
+    </div>
+
+
+
+
+    <div id="combat" style="display: none;">
+
+        <div id="equipe-gauche" class="equipe">
+
+            <h2>Équipe 1</h2>
+
+        </div>
+
+        <div id="journal">
+
+            <h2>Journal</h2>
+
+            <div id="log">
+
+                Le combat commence...
+
+            </div>
+
+        </div>
+
+        <div id="equipe-droite" class="equipe">
+
+            <h2>Équipe 2</h2>
+
+        </div>
+
+    </div>
+
+    <div id="tour" style="display: none;">
+
+    Tour actuel : 
+    <span id="personnage-tour">
+        Aucun
+    </span>
+
+</div>
+
+
+<div id="actions" style="display: none;">
+
+</div>
+
+<button id="valider-action" style="display: none;">
+    ✅ Valider l'action
+</button>
+
+<button id="fin-tour" style="display: none;">
+    Fin du tour
+</button>
+
+<button
+    id="quitter-combat"
+    style="display: none;"
+>
+    🏁 Arrêter le combat
+</button>
+
+
+
+<div id="popup-de" class="popup-cache">
+
+    <div class="popup">
+
+        <h2>Résultat du D20</h2>
+
+        <input
+            type="number"
+            id="resultat-de"
+            min="1"
+            max="20"
+        >
+
+        <button id="confirmer-de">
+            Confirmer
+        </button>
+
+    </div>
+
+</div>
+
+
+
+    <script src="js/Constantes.js"></script>
+
+    <script src="js/Personnage.js"></script>
+    
+    <script src="js/Equipement.js"></script>
+
+    <script src="js/BibliothequeEquipements.js"></script>
+
+    <script src="js/InventaireEquipements.js"></script>
+
+    <script src="js/Competence.js"></script>
+
+    <script src="js/Effets.js"></script>
+
+
+
+    <script src="js/personnages/Tom.js"></script>
+
+    <script src="js/personnages/BarbeNoire.js"></script>
+
+    <script src="js/personnages/BoucleNoire.js"></script>
+
+    <script src="js/personnages/VieuxSage.js"></script>
+
+    <script src="js/personnages/CraneBlanc.js"></script>
+
+    <script src="js/personnages/CraneRoux.js"></script>
+
+
+
+    <script src="js/monstres/Murloc.js"></script>
+
+    <script src="js/monstres/Corbeau.js"></script>
+
+    <script src="js/monstres/Ours.js"></script>
+
+    <script src="js/monstres/LoupAlpha.js"></script>
+
+    <script src="js/monstres/LoupBeta.js"></script>
+
+    <script src="js/monstres/Squelette.js"></script>
+
+    <script src="js/monstres/ChampionMalakor.js"></script>
+
+
+
+    <script src="js/Bibliotheque.js"></script>
+
+
+
+    <script src="js/Actions.js"></script>
+
+    <script src="js/Resolution.js"></script>
+
+    <script src="js/Interface.js"></script>
+
+    <script src="js/Combat.js"></script>
+
+    <script src="js/script.js"></script>
+
+
+
+</body>
+
+</html>
