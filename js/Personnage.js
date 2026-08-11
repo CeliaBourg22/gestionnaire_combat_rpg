@@ -10,7 +10,7 @@ class Personnage {
         ressources = {}
     }) {
 
-        this.id = nom.toLowerCase().replaceAll(" ", "_");
+        this.id = nom.toLowerCase().replaceAll(" ", "_") + "_" + Date.now() + "_" + Math.random().toString(36).substring(2, 7);
 
         this.nom = nom;
 
