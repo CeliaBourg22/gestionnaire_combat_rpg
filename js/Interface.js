@@ -24,7 +24,10 @@ function afficherEquipe(liste, idDiv){
 
         carte.innerHTML = `
 
-        <h3>${personnage.icone} ${personnage.nom}</h3>
+        <h3>
+            ${personnage.icone}
+            ${personnage.nomCombat || personnage.nom}
+        </h3>
 
 
         <div class="barre">
