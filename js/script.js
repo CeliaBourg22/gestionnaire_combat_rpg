@@ -5,28 +5,66 @@ let monstresSelectionnes = [];
 
 
 
+
+
+// =====================================================
+// 👹 CRÉER UNE NOUVELLE INSTANCE DE MONSTRE
+// =====================================================
+
+function creerInstanceMonstre(monstreModele){
+
+    const instance = new Personnage({
+
+        nom: monstreModele.nom,
+
+        icone: monstreModele.icone,
+
+        pvMax: monstreModele.pvMax,
+
+        manaMax: monstreModele.manaMax,
+
+        defense: monstreModele.defense,
+
+        competences: monstreModele.competences,
+
+        ressources: structuredClone(
+            monstreModele.ressources
+        )
+
+    });
+
+    return instance;
+}
+
+
+
+
+
 function afficherBibliotheque(){
 
     const zonePersonnages =
-    document.getElementById(
-        "bibliotheque-personnages"
-    );
-
+        document.getElementById(
+            "bibliotheque-personnages"
+        );
 
     const zoneMonstres =
-    document.getElementById(
-        "bibliotheque-monstres"
-    );
+        document.getElementById(
+            "bibliotheque-monstres"
+        );
 
+
+    // =====================================================
+    // 🧙 PERSONNAGES
+    // =====================================================
 
     BibliothequePersonnages.forEach(personnage => {
 
         const bouton =
-        document.createElement("button");
+            document.createElement("button");
 
 
         bouton.textContent =
-        `${personnage.icone} ${personnage.nom}`;
+            `${personnage.icone} ${personnage.nom}`;
 
 
         bouton.onclick = () => {
@@ -38,16 +76,16 @@ function afficherBibliotheque(){
             ){
 
                 personnagesSelectionnes =
-                personnagesSelectionnes.filter(
-                    p => p !== personnage
-                );
+                    personnagesSelectionnes.filter(
+                        p => p !== personnage
+                    );
 
                 bouton.classList.remove(
                     "selectionne"
                 );
 
                 bouton.textContent =
-                `${personnage.icone} ${personnage.nom}`;
+                    `${personnage.icone} ${personnage.nom}`;
 
             }
             else{
@@ -61,7 +99,7 @@ function afficherBibliotheque(){
                 );
 
                 bouton.textContent =
-                `✅ ${personnage.icone} ${personnage.nom}`;
+                    `✅ ${personnage.icone} ${personnage.nom}`;
 
             }
 
@@ -76,57 +114,136 @@ function afficherBibliotheque(){
 
 
 
+    // =====================================================
+    // 👹 MONSTRES
+    // =====================================================
+
     BibliothequeMonstres.forEach(monstre => {
 
-        const bouton =
-        document.createElement("button");
+        const ligne = document.createElement("div");
+
+        ligne.className = "ligne-monstre";
 
 
-        bouton.textContent =
-        `${monstre.icone} ${monstre.nom}`;
+        // =====================================================
+        // 👹 NOM DU MONSTRE
+        // =====================================================
+
+        const nom = document.createElement("span");
+
+        nom.textContent =
+            `${monstre.icone} ${monstre.nom}`;
+
+        ligne.appendChild(nom);
 
 
-        bouton.onclick = () => {
+        // =====================================================
+        // ➖ BOUTON MOINS
+        // =====================================================
 
-            if(
-                monstresSelectionnes.includes(
-                    monstre
-                )
-            ){
+        const boutonMoins =
+            document.createElement("button");
 
-                monstresSelectionnes =
-                monstresSelectionnes.filter(
-                    m => m !== monstre
+        boutonMoins.textContent = "−";
+
+
+        boutonMoins.onclick = () => {
+
+            const index =
+                monstresSelectionnes.findIndex(
+                    m => m.nom === monstre.nom
                 );
 
-                bouton.classList.remove(
-                    "selectionne"
-                );
 
-                bouton.textContent =
-                `${monstre.icone} ${monstre.nom}`;
-
+            if(index === -1){
+                return;
             }
-            else{
 
-                monstresSelectionnes.push(
-                    monstre
-                );
 
-                bouton.classList.add(
-                    "selectionne"
-                );
+            monstresSelectionnes.splice(
+                index,
+                1
+            );
 
-                bouton.textContent =
-                `✅ ${monstre.icone} ${monstre.nom}`;
 
-            }
+            mettreAJourCompteur();
 
         };
 
 
+        ligne.appendChild(
+            boutonMoins
+        );
+
+
+        // =====================================================
+        // 🔢 COMPTEUR
+        // =====================================================
+
+        const compteur =
+            document.createElement("span");
+
+        compteur.className =
+            "compteur-monstre";
+
+
+        function mettreAJourCompteur(){
+
+            const nombre =
+                monstresSelectionnes.filter(
+                    m => m.nom === monstre.nom
+                ).length;
+
+
+            compteur.textContent =
+                nombre;
+
+        }
+
+
+        mettreAJourCompteur();
+
+
+        ligne.appendChild(
+            compteur
+        );
+
+
+        // =====================================================
+        // ➕ BOUTON PLUS
+        // =====================================================
+
+        const boutonPlus =
+            document.createElement("button");
+
+        boutonPlus.textContent = "+";
+
+
+        boutonPlus.onclick = () => {
+
+            const nouvelleInstance =
+                creerInstanceMonstre(
+                    monstre
+                );
+
+
+            monstresSelectionnes.push(
+                nouvelleInstance
+            );
+
+
+            mettreAJourCompteur();
+
+        };
+
+
+        ligne.appendChild(
+            boutonPlus
+        );
+
+
         zoneMonstres.appendChild(
-            bouton
+            ligne
         );
 
     });
