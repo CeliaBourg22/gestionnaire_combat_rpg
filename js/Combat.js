@@ -324,6 +324,29 @@ commencerCompetence(competence){
 
 
 
+
+
+    // =====================================================
+    // 💙 VÉRIFICATION DU MANA
+    // =====================================================
+
+    if(
+        this.lanceur.mana <
+        competence.coutMana
+    ){
+
+        ajouterAuJournal(
+            `❌ ${this.lanceur.nom} n'a pas assez de mana pour utiliser ${competence.nom}.`
+        );
+
+        return false;
+
+    }
+
+
+
+
+
     if(
         competence.effets &&
         competence.effets.some(
@@ -508,8 +531,11 @@ recevoirJetDe(resultat){
     // CONSOMMATION DU MANA
     // =========================
 
-    this.lanceur.mana -=
-    competence.coutMana;
+    this.lanceur.mana =
+    Math.max(
+        0,
+        this.lanceur.mana - competence.coutMana
+    );
 
 
     mettreAJourBarres(
@@ -1037,6 +1063,112 @@ resoudreDegats(){
                 );
 
             }
+
+
+
+
+
+            // =================================================
+            // 🛡️ EXALTATION
+            // =================================================
+
+            const indexExaltation =
+                cible.etats.findIndex(
+                    etat =>
+                    etat.type === "exaltation"
+                );
+
+
+            if(indexExaltation !== -1){
+
+                const exaltation =
+                    cible.etats[indexExaltation];
+
+
+                // =================================================
+                // 🛡️ L'EXALTATION ABSORBE TOUT
+                // =================================================
+
+                if(
+                    degatsFinaux <=
+                    exaltation.valeurBlocage
+                ){
+
+                    exaltation.valeurBlocage -=
+                        degatsFinaux;
+
+
+                    ajouterAuJournal(
+                        `🛡️ ${cible.nom} bloque ${degatsFinaux} dégâts avec Exaltation.`
+                    );
+
+
+                    if(
+                        exaltation.valeurBlocage === 0
+                    ){
+
+                        cible.etats.splice(
+                            indexExaltation,
+                            1
+                        );
+
+
+                        ajouterAuJournal(
+                            `🛡️ L'Exaltation de ${cible.nom} disparaît.`
+                        );
+
+                    }
+                    else{
+
+                        ajouterAuJournal(
+                            `🛡️ Il reste ${exaltation.valeurBlocage} protection grâce à Exaltation.`
+                        );
+
+                    }
+
+
+                    mettreAJourBarres(
+                        cible
+                    );
+
+
+                    return;
+
+                }
+
+
+                // =================================================
+                // 💥 L'ATTAQUE DÉPASSE L'EXALTATION
+                // =================================================
+
+                const degatsRestants =
+                    degatsFinaux -
+                    exaltation.valeurBlocage;
+
+
+                ajouterAuJournal(
+                    `🛡️ L'Exaltation absorbe ${exaltation.valeurBlocage} dégâts.`
+                );
+
+
+                cible.etats.splice(
+                    indexExaltation,
+                    1
+                );
+
+
+                degatsFinaux =
+                    degatsRestants;
+
+
+                ajouterAuJournal(
+                    `💥 ${cible.nom} subit ${degatsFinaux} dégâts restants.`
+                );
+
+            }
+
+
+
 
 
             // =================================================
