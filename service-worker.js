@@ -1,4 +1,4 @@
-const CACHE_NAME = "gestionnaire-rpg-v3";
+const CACHE_NAME = "gestionnaire-rpg-v4";
 
 const FILES_TO_CACHE = [
     "./",
